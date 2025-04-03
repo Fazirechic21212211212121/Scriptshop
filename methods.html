@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Способы оплаты - Dava Shop</title>
     <style>
         body {
@@ -23,7 +22,7 @@
             background: rgba(0, 0, 0, 0.8);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
             animation: fadeIn 0.8s ease;
             max-width: 400px;
             width: 100%;
@@ -32,25 +31,25 @@
         h1 {
             font-size: 2.5rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            background: linear-gradient(45deg, #00ffff, #00ff80, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             margin-bottom: 20px;
-            animation: fire 1.5s infinite alternate;
+            animation: glow 1.5s infinite alternate;
         }
 
-        @keyframes fire {
+        @keyframes glow {
             0% {
-                text-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00, 0 0 45px #ff4500;
+                text-shadow: 0 0 15px #00ffff, 0 0 30px #00ff80, 0 0 45px #00ffff;
             }
             100% {
-                text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff8c00;
+                text-shadow: 0 0 20px #00ff80, 0 0 40px #00ffff, 0 0 60px #00ff80;
             }
         }
 
         .payment-btn {
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            background: linear-gradient(45deg, #00ffff, #00ff80);
             color: #fff;
             padding: 12px 30px;
             margin: 10px 0;
@@ -59,7 +58,7 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
             font-weight: bold;
             letter-spacing: 1px;
             width: 100%;
@@ -68,9 +67,9 @@
         }
 
         .payment-btn:hover {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            background: linear-gradient(45deg, #00ff80, #00ffff);
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
 
         .payment-btn:active {
@@ -85,9 +84,9 @@
 
         .currency-option {
             padding: 10px 20px;
-            border: 2px solid #ff4500;
+            border: 2px solid #00ffff;
             background-color: #222;
-            color: #ff8c00;
+            color: #00ff80;
             border-radius: 10px;
             margin: 0 5px;
             cursor: pointer;
@@ -96,7 +95,7 @@
         }
 
         .currency-option:hover, .currency-option.active {
-            background-color: #ff4500;
+            background-color: #00ffff;
             color: #fff;
         }
     </style>
@@ -111,14 +110,14 @@
             <div class="currency-option" data-currency="UAH">₴</div>
         </div>
         <p class="amount-display">Сумма к оплате: <span id="amountDisplay">0</span></p>
-        <p id="errorMessage" style="color: red; display: none;">Валюта не доступна в вашей стране. Или PayPal Не активен Попробуйте позже в другой стране или измините пл.Cис</p>
+        <p id="errorMessage" style="color: red; display: none;">Валюта не доступна в вашей стране. Или PayPal Не активен Попробуйте позже в другой стране или измените пл.Cис</p>
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="business" value="loiki1627@gmail.com">
+            <input type="hidden" name="business" value="babayanrichard2@gmail.com">
             <input type="hidden" name="item_name" value="Аватарка">
             <input type="hidden" name="amount" id="paypalAmount" value="">
             <input type="hidden" name="currency_code" id="paypalCurrency" value="EUR">
             <input type="hidden" name="cmd" value="_xclick">
-            <button type="submit" class="payment-btn" id="payButton">💸 Оплатить через PayPal</button>
+            <button type="submit" class="payment-btn" id="payButton">Pay to PayPal</button>
         </form>
     </div>
 
@@ -149,5 +148,4 @@
         });
     </script>
 </body>
-
 </html>
