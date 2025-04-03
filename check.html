@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек оплаты - Dava Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            animation: fadeIn 0.8s ease;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #00ff80, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 15px #00ffff, 0 0 30px #00ff80, 0 0 45px #00ffff; }
+            100% { text-shadow: 0 0 20px #00ff80, 0 0 40px #00ffff, 0 0 60px #00ff80; }
+        }
+
+        .receipt {
+            font-family: monospace;
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+            display: inline-block;
+            animation: fadeIn 1s ease;
+        }
+
+        .telegram {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #00ff80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Чек Оплаты</h1>
+        <div class="receipt" id="receiptCode"></div>
+        <p class="telegram">Напишите в Telegram: @patrik2111 и отправьте этот чек</p>
+    </div>
+
+    <script>
+        function generateReceiptCode() {
+            return 'DS-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        const receiptCode = generateReceiptCode();
+        document.getElementById("receiptCode").innerText = receiptCode;
+
+        fetch("https://discord.com/api/webhooks/1357395504442507424/oZZfPhMrHRCrRGdDAfQ0gQxVgOryiCbwZtf-A9KZyYki3Y2ABMkdAogr5_BizHBAWYR1", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: `Новый чек: ${receiptCode}` })
+        });
+    </script>
+</body>
+</html>
