@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>scriptShop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Shop</title>
     <style>
         body {
-            background-color: #000;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
             margin: 0;
             padding: 0;
             display: flex;
@@ -14,65 +14,59 @@
             align-items: center;
             height: 100vh;
             font-family: 'Roboto', sans-serif;
+            color: white;
         }
 
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
             animation: fadeIn 1s ease;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            background: linear-gradient(90deg, #ff5733, #c70039);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fire 1.5s infinite alternate;
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            animation: glow 1.5s infinite alternate;
         }
 
-        @keyframes fire {
-            0% {
-                text-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00, 0 0 45px #ff4500;
-            }
-            100% {
-                text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff8c00;
-            }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff5733; }
+            100% { text-shadow: 0 0 20px #c70039; }
         }
 
         .subtitle {
-            font-size: 1rem;
-            color: #bbb;
-            font-weight: 300;
+            font-size: 1.2rem;
+            color: #ddd;
             margin-bottom: 20px;
-            animation: fadeIn 1.5s ease;
         }
 
         button {
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            background: linear-gradient(45deg, #ff5733, #c70039);
             color: #fff;
-            padding: 12px 30px;
-            font-size: 1rem;
+            padding: 15px 35px;
+            font-size: 1.2rem;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 87, 51, 0.8);
             font-weight: bold;
-            letter-spacing: 1px;
             outline: none;
         }
 
         button:hover {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+            background: linear-gradient(45deg, #c70039, #ff5733);
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 87, 51, 1);
         }
 
         button:active {
@@ -80,23 +74,17 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Script Shop</h1>
-        <p class="subtitle">Предприниматель с 2025 года</p>
-        <button onclick="window.location.href='purchaseSite.html'">Купить скрипт для HTML</button>
-        <p class="subtitle">Никитос мой друг:) </p>
+        <p class="subtitle">Лучший магазин скриптов</p>
+        <button onclick="window.location.href='purchaseSite.html'">Перейти к покупкам</button>
+        <p class="subtitle">Поддержка 24/7 | Гарантия качества</p>
     </div>
 </body>
 </html>
