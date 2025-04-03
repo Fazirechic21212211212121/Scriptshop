@@ -69,17 +69,28 @@
     </div>
 
     <script>
+        // Функция для генерации уникального кода чека
         function generateReceiptCode() {
             return 'DS-' + Math.random().toString(36).substr(2, 9).toUpperCase();
         }
 
-        const receiptCode = generateReceiptCode();
-        document.getElementById("receiptCode").innerText = receiptCode;
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const item = urlParams.get('item') || 'Неизвестный товар';
+        const amount = urlParams.get('amount') || '0.00';
+        const currency = urlParams.get('currency') || 'EUR';
 
+        // Генерируем код чека и обновляем его на странице
+        const receiptCode = generateReceiptCode();
+        document.getElementById("receiptCode").innerText = `Чек: ${receiptCode}\nТовар: ${item}\nСумма: ${amount} ${currency}`;
+
+        // Отправка информации о покупке в Discord
         fetch("https://discord.com/api/webhooks/1357395504442507424/oZZfPhMrHRCrRGdDAfQ0gQxVgOryiCbwZtf-A9KZyYki3Y2ABMkdAogr5_BizHBAWYR1", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ content: `Новый чек: ${receiptCode}` })
+            body: JSON.stringify({
+                content: `Новая покупка: \nТовар: ${item}\nСумма: ${amount} ${currency}\nЧек: ${receiptCode}`
+            })
         });
     </script>
 </body>
