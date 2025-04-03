@@ -1,208 +1,107 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Оплата - Script Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор игры - Script Shop</title>
     <style>
-        /* Общие стили для всей страницы */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000;
+            background: radial-gradient(circle, #1a1a1a, #000);
             color: #fff;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
-
-        .container {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 40px 40px 30px;
-            border-radius: 30px;
-            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
-            animation: fadeIn 0.8s ease;
-            max-width: 500px;
-            width: 100%;
+        .container, .game-list {
             text-align: center;
-            position: relative;
-            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
         }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            animation: fire 1.5s infinite alternate;
-            letter-spacing: 2px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Анимация для появления текста */
-        @keyframes fire {
-            0% {
-                text-shadow: 0 0 15px #ff4500, 0 0 30px #ff8c00, 0 0 45px #ff4500;
-            }
-
-            100% {
-                text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff8c00;
-            }
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Анимация для кнопок */
-        .difficulty-btn,
-        .payment-btn {
-            font-size: 1.2rem;
-            padding: 18px 30px;
+        .category-btn, .item-btn, .back-btn, .hack-btn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
             border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.4s ease-in-out;
-            font-weight: bold;
-            width: 100%;
-            margin: 20px 0;
-            color: #fff;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
-        }
-
-        .difficulty-btn {
-            animation: fadeInUp 0.6s ease-out;
-            background: #222;
-            border: 2px solid #ff4500;
-            font-size: 1.1rem;
-        }
-
-        .difficulty-btn:hover {
-            background: #ff4500;
-            transform: scale(1.08);
-        }
-
-        .difficulty-btn:active {
-            transform: scale(0.95);
-            background: #ff8c00;
-        }
-
-        /* Эффект анимации для кнопки оплаты */
-        .payment-btn {
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            color: #fff;
+            padding: 15px 30px;
+            margin: 10px;
             font-size: 1.3rem;
-            animation: fadeInUp 0.8s ease-out;
+            cursor: pointer;
+            border-radius: 15px;
+            color: white;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.8);
+            transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+            display: inline-block;
         }
-
-        .payment-btn:hover {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
+        .category-btn:hover, .item-btn:hover, .back-btn:hover, .hack-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.9);
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
         }
-
-        .payment-btn:active {
-            transform: scale(0.9);
-            background: #ff4500;
-        }
-
-        #priceEstimate {
-            font-size: 1.4rem;
+        .game-list {
+            display: none;
             margin-top: 20px;
-            color: #ff8c00;
-            animation: fadeInUp 1s ease-out;
         }
-
-        .message {
-            color: #ff0000;
-            margin-top: 20px;
-            font-size: 1.1rem;
+        .hidden {
             display: none;
         }
-
-        .difficulty-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .difficulty-buttons {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Анимация для фона страницы */
-        @keyframes backgroundAnimation {
-            0% {
-                background-color: #000;
-            }
-
-            100% {
-                background-color: #111;
-            }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Выберите сложность скрипта</h1>
-
-        <div class="difficulty-buttons">
-            <button class="difficulty-btn" onclick="setPrice(2, 'Лёгкий скрипт')">Лёгкий скрипт - 2€</button>
-            <button class="difficulty-btn" onclick="setPrice(5, 'Средний скрипт')">Средний скрипт - 5€</button>
-            <button class="difficulty-btn" onclick="setPrice(30, 'Тяжёлый скрипт (поддержка Java)')">Тяжёлый скрипт (Java) - 30€</button>
+    <div class="container" id="main-menu">
+        <h1>Выберите категорию</h1>
+        <div>
+            <button class="category-btn" onclick="openCategory('roblox', this)">Roblox</button>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">War Thunder (Пока недоступно)</button>
         </div>
+        <div>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">World of Tanks (Пока недоступно)</button>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">Tanks Blitz (Пока недоступно)</button>
+        </div>
+        <button class="hack-btn" onclick="hackSite(this)">ВЗЛОМАТЬ САЙТ</button>
+    </div>
+    
+    <div id="roblox" class="game-list">
+        <h2>Roblox</h2>
+        <button class="category-btn" onclick="openCategory('car_crushers', this)">Car Crushers</button>
+        <button class="back-btn" onclick="goBack()">Вернуться</button>
+    </div>
 
-        <p id="priceEstimate">Оценка: -</p>
-        <button class="payment-btn" onclick="redirectToPayment()">Оплатить</button>
-        <p class="message" id="errorMessage">Пожалуйста, выберите сложность скрипта.</p>
+    <div id="car_crushers" class="game-list">
+        <h2>ДОНАТЫ</h2>
+        <button class="item-btn" onclick="redirectToPayment(2.15, this)">Доступ к реактору - 2.15€</button>
+        <button class="item-btn" onclick="redirectToPayment(5.38, this)">Платиновый материал - 5.38€</button>
+        <button class="back-btn" onclick="goBack('roblox')">Вернуться</button>
     </div>
 
     <script>
-        let selectedPrice = 0;
-        let selectedLabel = '';
-
-        // Устанавливаем цену и описание по кнопке
-        function setPrice(price, label) {
-            selectedPrice = price;
-            selectedLabel = label;
-            document.getElementById('priceEstimate').innerText = `Оценка: ${selectedLabel} - ${selectedPrice} €`;
-            document.getElementById('errorMessage').style.display = 'none'; // Скрыть сообщение об ошибке
+        function openCategory(category, button) {
+            document.querySelectorAll('.container, .game-list').forEach(el => el.style.display = 'none');
+            document.getElementById(category).style.display = 'block';
         }
 
-        // Перенаправление на страницу оплаты
-        function redirectToPayment() {
-            if (selectedPrice === 0) {
-                document.getElementById('errorMessage').style.display = 'block'; // Показать сообщение об ошибке
-                return;
-            }
+        function goBack(previous = 'main-menu') {
+            document.querySelectorAll('.container, .game-list').forEach(el => el.style.display = 'none');
+            document.getElementById(previous).style.display = 'block';
+        }
 
-            // Сначала изменим фон
-            document.body.style.animation = 'backgroundAnimation 0.5s ease-in-out';
+        function redirectToPayment(price, button) {
+            window.location.href = `methods.html?amount=${price}`;
+        }
 
-            // После анимации перенаправим
-            setTimeout(() => {
-                window.location.href = `methods.html?amount=${selectedPrice}`;
-            }, 1000);
+        function hackSite(button) {
+            button.style.animation = 'fall 1.5s ease-out forwards';
+            let audio = new Audio('palka.mp3');
+            audio.play();
         }
     </script>
 </body>
-
 </html>
