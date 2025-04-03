@@ -110,13 +110,17 @@
             <div class="currency-option" data-currency="UAH">₴</div>
         </div>
         <p class="amount-display">Сумма к оплате: <span id="amountDisplay">0</span></p>
-        <p id="errorMessage" style="color: red; display: none;">Валюта не доступна в вашей стране. Или PayPal Не активен Попробуйте позже в другой стране или измените пл.Cис</p>
+        <p id="errorMessage" style="color: red; display: none;">Валюта не доступна в вашей стране. Или PayPal Не активен. Попробуйте позже в другой стране или измените платёжную систему.</p>
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="business" value="babayanrichard2@gmail.com">
             <input type="hidden" name="item_name" value="Аватарка">
             <input type="hidden" name="amount" id="paypalAmount" value="">
             <input type="hidden" name="currency_code" id="paypalCurrency" value="EUR">
             <input type="hidden" name="cmd" value="_xclick">
+            <!-- Return URL after successful payment -->
+            <input type="hidden" name="return" value="https://yourwebsite.com/check.html">
+            <!-- Cancel URL if payment is canceled -->
+            <input type="hidden" name="cancel_return" value="https://yourwebsite.com/cancel.html">
             <button type="submit" class="payment-btn" id="payButton">Pay to PayPal</button>
         </form>
     </div>
