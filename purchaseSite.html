@@ -60,14 +60,13 @@
         <h1>Выберите категорию</h1>
         <div>
             <button class="category-btn" onclick="openCategory('roblox', this)">Roblox</button>
- <button class="category-btn" onclick="openCategory('roblox', this)">Roblox</button>
             <button class="category-btn" onclick="openCategory('unavailable', this)">War Thunder (Пока недоступно)</button>
         </div>
-
 
         <div>
             <button class="category-btn" onclick="openCategory('unavailable', this)">World of Tanks (Пока недоступно)</button>
             <button class="category-btn" onclick="openCategory('unavailable', this)">Tanks Blitz (Пока недоступно)</button>
+            <button class="category-btn" onclick="openCategory('scripts', this)">Скрипты для сайта</button>
         </div>
         <button class="hack-btn" onclick="hackSite(this)">Получить все бесплатно</button>
     </div>
@@ -85,9 +84,13 @@
         <button class="back-btn" onclick="goBack('roblox')">Вернуться</button>
     </div>
 
-
-  <div id="car_crushers" class="game-list">
-   
+    <div id="scripts" class="game-list">
+        <h2>Скрипты для сайта</h2>
+        <button class="item-btn" onclick="redirectToPayment(1.15, this)">Легкий скрипт - 1.15€</button>
+        <button class="item-btn" onclick="redirectToPayment(3.70, this)">Средний скрипт - 3.70€</button>
+        <button class="item-btn" onclick="redirectToPayment(25.00, this)">Тяжелый скрипт JAVA - 25.00€</button>
+        <button class="back-btn" onclick="goBack()">Вернуться</button>
+    </div>
 
     <script>
         function openCategory(category, button) {
