@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Methods - Script Shop</title>
-     <!-- Favicon -->
-    <link rel="icon" href="https://icons8.com/icon/ii6Lr4KivOiE/shopping-cart" type="image/png">
+    <link rel="icon" href="https://img.icons8.com/glyph-neue/64/shopping-cart.png" type="image/png">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=EUR&components=buttons"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,6 @@
             height: 100vh;
             margin: 0;
         }
-
         .container {
             background: rgba(0, 0, 0, 0.8);
             padding: 30px;
@@ -29,7 +28,6 @@
             max-width: 400px;
             width: 100%;
         }
-
         h1 {
             font-size: 2.5rem;
             font-weight: bold;
@@ -40,16 +38,6 @@
             margin-bottom: 20px;
             animation: glow 1.5s infinite alternate;
         }
-
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 15px #00ffff, 0 0 30px #00ff80, 0 0 45px #00ffff;
-            }
-            100% {
-                text-shadow: 0 0 20px #00ff80, 0 0 40px #00ffff, 0 0 60px #00ff80;
-            }
-        }
-
         .payment-btn {
             background: linear-gradient(45deg, #00ffff, #00ff80);
             color: #fff;
@@ -67,48 +55,17 @@
             display: block;
             outline: none;
         }
-
         .payment-btn:hover {
-            background: linear-gradient(45deg, #00ff80, #00ffff);
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
-
-        .currency-select {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .currency-option {
-            padding: 10px 20px;
-            border: 2px solid #00ffff;
-            background-color: #222;
-            color: #00ff80;
-            border-radius: 10px;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .currency-option:hover, .currency-option.active {
-            background-color: #00ffff;
-            color: #fff;
-        }
     </style>
 </head>
-
 <body>
     <div class="container">
         <h1>Select Payment Method</h1>
-        <div class="currency-select">
-            <div class="currency-option active" data-currency="EUR">€</div>
-            <div class="currency-option" data-currency="USD">$</div>
-            <div class="currency-option" data-currency="UAH">₴</div>
-        </div>
         <p class="amount-display">Amount to Pay: <span id="amountDisplay">0</span></p>
-        <p id="errorMessage" style="color: red; display: none;">Currency is not available in your country, or PayPal is inactive. Try again later in another country or change the payment method.</p>
+
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="business" value="babayanrichard2@gmail.com">
             <input type="hidden" name="item_name" value="Avatar">
@@ -117,35 +74,47 @@
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="return" value="https://yourwebsite.com/check.html">
             <input type="hidden" name="cancel_return" value="https://yourwebsite.com/cancel.html">
-            <button type="submit" class="payment-btn" id="payButton">Pay with PayPal</button>
+            <button type="submit" class="payment-btn">Pay with PayPal</button>
         </form>
+
+        <div id="paypal-button-container"></div>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const amount = urlParams.get('amount');
-        if (amount) {
-            const formattedAmount = parseFloat(amount).toFixed(2);
-            document.getElementById('amountDisplay').innerText = formattedAmount;
-            document.getElementById('paypalAmount').value = formattedAmount;
-        }
+        const amount = urlParams.get('amount') || '0';
+        document.getElementById('amountDisplay').innerText = parseFloat(amount).toFixed(2);
+        document.getElementById('paypalAmount').value = parseFloat(amount).toFixed(2);
 
-        document.querySelectorAll('.currency-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('.currency-option').forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                const selectedCurrency = option.getAttribute('data-currency');
-                document.getElementById('paypalCurrency').value = selectedCurrency;
-                
-                if (selectedCurrency === "UAH") {
-                    document.getElementById('errorMessage').style.display = 'block';
-                    document.getElementById('payButton').disabled = true;
-                } else {
-                    document.getElementById('errorMessage').style.display = 'none';
-                    document.getElementById('payButton').disabled = false;
-                }
-            });
-        });
+        paypal.Buttons({
+            fundingSource: paypal.FUNDING.PAYPAL,
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{ amount: { value: amount } }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Payment successful!');
+                    window.location.href = 'https://yourwebsite.com/check.html';
+                });
+            }
+        }).render('#paypal-button-container');
+
+        paypal.Buttons({
+            fundingSource: paypal.FUNDING.CARD,
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{ amount: { value: amount } }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Card payment successful!');
+                    window.location.href = 'https://yourwebsite.com/check.html';
+                });
+            }
+        }).render('#paypal-button-container');
     </script>
 </body>
 </html>
