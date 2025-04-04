@@ -61,6 +61,8 @@
             box-shadow: 0 0 15px rgba(255, 87, 51, 0.8);
             font-weight: bold;
             outline: none;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
@@ -73,6 +75,118 @@
             transform: scale(0.95);
         }
 
+        button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: #ffffff;
+            transition: all 0.6s;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.3;
+        }
+
+        button:active:before {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .language-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInModal 0.8s forwards;
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: #222;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-align: center;
+            animation: fadeInModalContent 1s ease-in-out;
+        }
+
+        @keyframes fadeInModalContent {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .language-buttons button {
+            background: #ff5733;
+            color: #fff;
+            padding: 15px 30px;
+            margin: 15px;
+            font-size: 1.4rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 87, 51, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-buttons button:hover {
+            background: #c70039;
+            transform: scale(1.1);
+        }
+
+        .language-buttons button:active {
+            transform: scale(0.95);
+        }
+
+        .language-buttons button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: #ffffff;
+            transition: all 0.6s;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.3;
+        }
+
+        .language-buttons button:active:before {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -81,9 +195,55 @@
 </head>
 <body>
     <div class="container">
-        <h1>Script Shop</h1>
-        <p class="subtitle">The best shop</p>
+        <h1 id="title">Script Shop</h1>
+        <p class="subtitle" id="subtitle">The best shop</p>
+        
         <button onclick="window.location.href='purchaseSite.html'">Go to purchases</button>
     </div>
+
+    <!-- Language Selection Modal -->
+    <div id="languageSelection" class="language-modal">
+        <div class="modal-content">
+            <h2>Select Language</h2>
+            <div class="language-buttons">
+                <button onclick="setLanguage('en')">English</button>
+                <button onclick="setLanguage('ru')">Русский</button>
+                <button onclick="setLanguage('cs')">Čeština</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to set the language
+        function setLanguage(lang) {
+            translatePage(lang);
+            document.getElementById("languageSelection").style.display = 'none'; // Hide modal after selection
+        }
+
+        // Function to translate the page based on the selected language
+        function translatePage(lang) {
+            const translations = {
+                en: {
+                    title: "Script Shop",
+                    subtitle: "The best shop",
+                },
+                ru: {
+                    title: "Магазин скриптов",
+                    subtitle: "Лучший магазин",
+                },
+                cs: {
+                    title: "Obchod se skripty",
+                    subtitle: "Nejlepší obchod",
+                }
+            };
+            document.getElementById("title").innerText = translations[lang].title;
+            document.getElementById("subtitle").innerText = translations[lang].subtitle;
+        }
+
+        // Show the language selection modal on page load
+        window.onload = function() {
+            document.getElementById("languageSelection").style.display = 'flex';
+        };
+    </script>
 </body>
 </html>
