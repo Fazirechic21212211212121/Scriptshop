@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Выбор игры - Script Shop</title>
+    <title>Game Selection - Script Shop</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -57,39 +57,39 @@
 </head>
 <body>
     <div class="container" id="main-menu">
-        <h1>Выберите категорию</h1>
+        <h1>Select a Category</h1>
         <div>
             <button class="category-btn" onclick="openCategory('roblox', this)">Roblox</button>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">War Thunder (Пока недоступно)</button>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">War Thunder (Unavailable)</button>
         </div>
 
         <div>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">World of Tanks (Пока недоступно)</button>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">Tanks Blitz (Пока недоступно)</button>
-            <button class="category-btn" onclick="openCategory('scripts', this)">Скрипты для сайта</button>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">World of Tanks (Unavailable)</button>
+            <button class="category-btn" onclick="openCategory('unavailable', this)">Tanks Blitz (Unavailable)</button>
+            <button class="category-btn" onclick="openCategory('scripts', this)">Website Scripts</button>
         </div>
-        <button class="hack-btn" onclick="hackSite(this)">Получить все бесплатно</button>
+        <button class="hack-btn" onclick="hackSite(this)">Get Everything for Free</button>
     </div>
     
     <div id="roblox" class="game-list">
         <h2>Roblox</h2>
         <button class="category-btn" onclick="openCategory('car_crushers', this)">Car Crushers</button>
-        <button class="back-btn" onclick="goBack()">Вернуться</button>
+        <button class="back-btn" onclick="goBack()">Back</button>
     </div>
 
     <div id="car_crushers" class="game-list">
-        <h2>ДОНАТЫ</h2>
-        <button class="item-btn" onclick="redirectToPayment(2.15, this)">Доступ к реактору - 2.15€</button>
-        <button class="item-btn" onclick="redirectToPayment(5.38, this)">Платиновый материал - 5.38€</button>
-        <button class="back-btn" onclick="goBack('roblox')">Вернуться</button>
+        <h2>DONATIONS</h2>
+        <button class="item-btn" onclick="redirectToPayment(2.15, this)">Reactor Access - 2.15€</button>
+        <button class="item-btn" onclick="redirectToPayment(5.38, this)">Platinum Material - 5.38€</button>
+        <button class="back-btn" onclick="goBack('roblox')">Back</button>
     </div>
 
     <div id="scripts" class="game-list">
-        <h2>Скрипты для сайта</h2>
-        <button class="item-btn" onclick="redirectToPayment(1.15, this)">Легкий скрипт - 1.15€</button>
-        <button class="item-btn" onclick="redirectToPayment(3.70, this)">Средний скрипт - 3.70€</button>
-        <button class="item-btn" onclick="redirectToPayment(25.00, this)">Тяжелый скрипт JAVA - 25.00€</button>
-        <button class="back-btn" onclick="goBack()">Вернуться</button>
+        <h2>Website Scripts</h2>
+        <button class="item-btn" onclick="redirectToPayment(1.15, this)">Light Script - 1.15€</button>
+        <button class="item-btn" onclick="redirectToPayment(3.70, this)">Medium Script - 3.70€</button>
+        <button class="item-btn" onclick="redirectToPayment(25.00, this)">Heavy JAVA Script - 25.00€</button>
+        <button class="back-btn" onclick="goBack()">Back</button>
     </div>
 
     <script>
