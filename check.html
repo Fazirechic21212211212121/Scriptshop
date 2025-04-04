@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чек оплаты - Dava Shop</title>
+    <title>Payment Receipt - Dava Shop</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,33 +63,29 @@
 </head>
 <body>
     <div class="container">
-        <h1>Чек Оплаты</h1>
+        <h1>Payment Receipt</h1>
         <div class="receipt" id="receiptCode"></div>
-        <p class="telegram">Напишите в Telegram: @patrik2111 и отправьте этот чек</p>
+        <p class="telegram">Contact Telegram: @patrik2111 and send this receipt</p>
     </div>
 
     <script>
-        // Функция для генерации уникального кода чека
         function generateReceiptCode() {
             return 'DS-' + Math.random().toString(36).substr(2, 9).toUpperCase();
         }
 
-        // Получаем параметры из URL
         const urlParams = new URLSearchParams(window.location.search);
-        const item = urlParams.get('item') || 'Неизвестный товар';
+        const item = urlParams.get('item') || 'Unknown Item';
         const amount = urlParams.get('amount') || '0.00';
         const currency = urlParams.get('currency') || 'EUR';
 
-        // Генерируем код чека и обновляем его на странице
         const receiptCode = generateReceiptCode();
-        document.getElementById("receiptCode").innerText = `Чек: ${receiptCode}\nТовар: ${item}\nСумма: ${amount} ${currency}`;
+        document.getElementById("receiptCode").innerText = `Receipt: ${receiptCode}\nItem: ${item}\nAmount: ${amount} ${currency}`;
 
-        // Отправка информации о покупке в Discord
         fetch("https://discord.com/api/webhooks/1357395504442507424/oZZfPhMrHRCrRGdDAfQ0gQxVgOryiCbwZtf-A9KZyYki3Y2ABMkdAogr5_BizHBAWYR1", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                content: `Новая покупка: \nТовар: ${item}\nСумма: ${amount} ${currency}\nЧек: ${receiptCode}`
+                content: `New Purchase:\nItem: ${item}\nAmount: ${amount} ${currency}\nReceipt: ${receiptCode}`
             })
         });
     </script>
