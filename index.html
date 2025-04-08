@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script Shop</title>
-     <!-- Favicon -->
-<link rel="icon" href="https://img.icons8.com/glyph-neue/64/shopping-cart.png" type="image/png">
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/glyph-neue/64/shopping-cart.png" type="image/png">
     <style>
         body {
             background: linear-gradient(45deg, #1a1a2e, #16213e);
@@ -186,19 +186,37 @@
         .google-translate-btn:active {
             transform: scale(0.95);
         }
+
+        .navigate-btn {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            background: linear-gradient(45deg, #33cc33, #28a428);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(51, 204, 51, 0.8);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .navigate-btn:hover {
+            background: linear-gradient(45deg, #28a428, #33cc33);
+            transform: scale(1.1);
+        }
+
+        .navigate-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="title">Script Shop</h1>
         <p class="subtitle" id="subtitle">The best shop</p>
-        
-        
-        
         <button onclick="window.location.href='purchaseSite.html'">Go to purchases</button>
     </div>
-
-   
 
     <!-- Google Translate Modal -->
     <div id="translateModal" class="modal">
@@ -212,6 +230,11 @@
     <!-- Google Translate Button -->
     <button class="google-translate-btn" onclick="openModal()">
         Translate Page
+    </button>
+
+    <!-- Navigate to wheel.html Button -->
+    <button class="navigate-btn" onclick="window.location.href='wheel.html'">
+        Go to Wheel
     </button>
 
     <script type="text/javascript">
