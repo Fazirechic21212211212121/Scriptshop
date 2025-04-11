@@ -55,7 +55,13 @@
             display: block;
             outline: none;
         }
-        .payment-btn:hover {
+        .payment-btn:disabled {
+            background: #444;
+            color: #aaa;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        .payment-btn:hover:enabled {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
@@ -66,6 +72,10 @@
         .offer-link a {
             color: #00ffff;
             text-decoration: underline;
+        }
+        .checkbox-container {
+            margin-top: 10px;
+            text-align: left;
         }
     </style>
 </head>
@@ -83,30 +93,55 @@
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="return" value="https://yourwebsite.com/check.html">
             <input type="hidden" name="cancel_return" value="https://yourwebsite.com/cancel.html">
-            <button type="submit" class="payment-btn">Pay with PayPal</button>
+
+            <!-- Ссылка на оферту -->
+            <p class="offer-link">
+                После покупки вы автоматически соглашаетесь с 
+                <a href="oferta.html" target="_blank">офертой</a>.
+            </p>
+
+            <!-- Чекбокс прямо под текстом -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="acceptOffer">
+                <label for="acceptOffer">Я принимаю условия оферты</label>
+            </div>
+
+            <!-- Кнопка оплаты -->
+            <button type="submit" class="payment-btn" id="paypalSubmitBtn" disabled>Pay with PayPal</button>
         </form>
 
-        <div id="paypal-button-container"></div>
-
-        <!-- Ссылка на оферту -->
-        <p class="offer-link">
-            После покупки вы автоматически соглашаетесь с 
-            <a href="oferta.html">офертой</a>.
-        </p>
+        <!-- Кнопки PayPal и карт -->
+        <div id="paypal-button-container" style="margin-top: 20px;"></div>
     </div>
 
     <script>
+        // Получаем сумму из URL
         const urlParams = new URLSearchParams(window.location.search);
         const amount = urlParams.get('amount') || '0';
         document.getElementById('amountDisplay').innerText = parseFloat(amount).toFixed(2);
         document.getElementById('paypalAmount').value = parseFloat(amount).toFixed(2);
 
+        // Галочка оферты
+        const acceptOfferCheckbox = document.getElementById('acceptOffer');
+        const paypalButton = document.getElementById('paypalSubmitBtn');
+
+        acceptOfferCheckbox.addEventListener('change', function () {
+            paypalButton.disabled = !this.checked;
+        });
+
+        // PayPal кнопки с проверкой чекбокса
         paypal.Buttons({
             fundingSource: paypal.FUNDING.PAYPAL,
             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{ amount: { value: amount } }]
                 });
+            },
+            onClick: function() {
+                if (!acceptOfferCheckbox.checked) {
+                    alert("Вы должны принять оферту перед оплатой.");
+                    return false;
+                }
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
@@ -122,6 +157,12 @@
                 return actions.order.create({
                     purchase_units: [{ amount: { value: amount } }]
                 });
+            },
+            onClick: function() {
+                if (!acceptOfferCheckbox.checked) {
+                    alert("Вы должны принять оферту перед оплатой.");
+                    return false;
+                }
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
