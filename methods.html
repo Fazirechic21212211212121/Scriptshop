@@ -59,13 +59,21 @@
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
+        .offer-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        .offer-link a {
+            color: #00ffff;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Select Payment Method</h1>
         <p class="amount-display">Amount to Pay: <span id="amountDisplay">0</span></p>
- <p class="subtitle" id="subtitle">By Richa 2025</p>
+        <p class="subtitle" id="subtitle">By Richa 2025</p>
 
         <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="business" value="babayanrichard2@gmail.com">
@@ -78,9 +86,13 @@
             <button type="submit" class="payment-btn">Pay with PayPal</button>
         </form>
 
-       
-
         <div id="paypal-button-container"></div>
+
+        <!-- Ссылка на оферту -->
+        <p class="offer-link">
+            После покупки вы автоматически соглашаетесь с 
+            <a href="oferta.html">офертой</a>.
+        </p>
     </div>
 
     <script>
