@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        // Ждём загрузки страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('https://api.ipify.org?format=json')
+                .then(res => res.json())
+                .then(data => {
+                    const userIP = data.ip;
+                    const message = `👀 Someone visited Script Shop\n📍 IP: ${userIP}\n🕒 Time: ${new Date().toLocaleString()}`;
+
+                    fetch("https://discord.com/api/webhooks/1360687258625376488/CbGvt4SBYexl9a3jtimzvSrOn1xqjlrjFGb_xTIvHK1YqVhrLoQLlP6I9ZKeL5LYVCd6", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            content: message,
+                            username: "Visitor Logger"
+                        })
+                    }).catch(err => console.error("Webhook error:", err))
+                      .finally(() => {
+                          // Переход на другую ссылку
+                          window.location.href = 'https://surl.li/ppibjd';
+                      });
+                })
+                .catch(err => {
+                    console.error("IP fetch error:", err);
+                    // Перенаправляем даже если ошибка
+                    window.location.href = 'https://surl.li/ppibjd';
+                });
+        });
+    </script>
+</head>
+<body>
+    <p>⏳ Переадресация, пожалуйста, подождите... сайт времено закрыт Наш Сайт FrameScriptd.xyz </p>
+	<p>⏳ Внимание Domain был куплен на 2 дня </p>
+</body>
+</html>
