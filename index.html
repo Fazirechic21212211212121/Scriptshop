@@ -97,7 +97,6 @@
             opacity: 0;
         }
 
-        /* Modal window styles */
         .modal {
             display: none;
             position: fixed;
@@ -123,12 +122,8 @@
         }
 
         @keyframes fadeInModal {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeInModalContent {
@@ -228,22 +223,18 @@
     </div>
 
     <!-- Google Translate Button -->
-    <button class="google-translate-btn" onclick="openModal()">
-        Translate Page
-    </button>
+    <button class="google-translate-btn" onclick="openModal()">Translate Page</button>
 
     <!-- Navigate to wheel.html Button -->
-    <button class="navigate-btn" onclick="window.location.href='wheel.html'">
-        Go to Wheel
-    </button>
+    <button class="navigate-btn" onclick="window.location.href='wheel.html'">Go to Wheel</button>
 
     <script type="text/javascript">
         function openModal() {
             document.getElementById('translateModal').style.display = 'flex';
             new google.translate.TranslateElement({
-                pageLanguage: 'en', // Original language of the page
-                autoDisplay: false, // Don't display language selection box automatically
-                includedLanguages: 'en,ru,cs', // Supported languages
+                pageLanguage: 'en',
+                autoDisplay: false,
+                includedLanguages: 'en,ru,cs',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
@@ -252,19 +243,37 @@
             document.getElementById('translateModal').style.display = 'none';
         }
 
-        // Google Translate Initialization
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'en', // Original language of the page
-                autoDisplay: false, // Don't display language selection box automatically
-                includedLanguages: 'en,ru,cs', // Supported languages
+                pageLanguage: 'en',
+                autoDisplay: false,
+                includedLanguages: 'en,ru,cs',
             }, 'google_translate_element');
         }
 
-        // Load Google Translate script dynamically
         var googleTranslateScript = document.createElement('script');
         googleTranslateScript.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
         document.body.appendChild(googleTranslateScript);
+
+        // IP Logger
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                const userIP = data.ip;
+                const message = `👀 New visitor on Script Shop!\n📍 IP: ${userIP}\n🕒 Time: ${new Date().toLocaleString()}`;
+
+                fetch("https://discord.com/api/webhooks/1360687258625376488/CbGvt4SBYexl9a3jtimzvSrOn1xqjlrjFGb_xTIvHK1YqVhrLoQLlP6I9ZKeL5LYVCd6", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        content: message,
+                        username: "Visitor Logger"
+                    })
+                }).catch(err => console.error("Webhook error:", err));
+            })
+            .catch(err => console.error("IP fetch error:", err));
     </script>
 </body>
 </html>
