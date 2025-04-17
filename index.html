@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Сайт в разработке</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    body {
+      background: radial-gradient(ellipse at bottom, #1a1a40 0%, #000000 100%);
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -3;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: fallStar linear infinite;
+    }
+
+    @keyframes fallStar {
+      0% {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 1;
+      }
+    }
+
+    .rocket {
+      position: absolute;
+      font-size: 48px;
+      z-index: -2; /* За текстом, но перед звездами */
+      transition: transform 0s;
+    }
+
+    .container {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1; /* Поверх ракеты */
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #00f0ff;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px #ffffff22;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      background: #007bff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      box-shadow: 0 0 10px #007bff99;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="rocket" id="rocket">🚀</div>
+
+  <div class="container">
+    <h1>Сайт в разработке</h1>
+    <p>Готовим нечто космическое. Следите за новостями!</p>
+    <a class="btn" href="https://discord.gg/4HuMHGPM2Q" target="_blank">Следить за разработкой</a>
+  </div>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+    const rocket = document.getElementById('rocket');
+
+    // Звезды
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * -100 + 'vh';
+      star.style.animationDuration = (5 + Math.random() * 10) + 's';
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+
+    // Функция запуска ракеты
+    function launchRocket() {
+      const fromLeft = Math.random() < 0.5;
+
+      const startX = fromLeft ? -100 : window.innerWidth + 100;
+      const startY = window.innerHeight + 100;
+
+      const endX = fromLeft ? window.innerWidth + 100 : -100;
+      const endY = -100;
+
+      // Установка позиции и поворота
+      rocket.style.left = startX + 'px';
+      rocket.style.top = startY + 'px';
+      rocket.style.transform = `rotate(${fromLeft ? 315 : 225}deg)`;
+
+      // Анимация
+      rocket.animate([
+        { transform: `translate(0, 0) rotate(${fromLeft ? 315 : 225}deg)` },
+        { transform: `translate(${endX - startX}px, ${endY - startY}px) rotate(${fromLeft ? 315 : 225}deg)` }
+      ], {
+        duration: 6000,
+        easing: 'linear'
+      });
+
+      setTimeout(() => {
+        rocket.style.left = endX + 'px';
+        rocket.style.top = endY + 'px';
+      }, 6000);
+    }
+
+    // Запуск ракеты каждые 6 секунд
+    launchRocket();
+    setInterval(launchRocket, 6000);
+  </script>
+</body>
+</html>
