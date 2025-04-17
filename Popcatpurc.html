@@ -3,131 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Selection - Script Shop</title>
-     <!-- Favicon -->
-   <link rel="icon" href="https://img.icons8.com/glyph-neue/64/shopping-cart.png" type="image/png">
+    <title>POP CAT JACHYM</title>
+    <link rel="icon" href="https://img.icons8.com/glyph-neue/64/shopping-cart.png" type="image/png">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=EUR&components=buttons"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: radial-gradient(circle, #1a1a1a, #000);
+            font-family: Arial, sans-serif;
+            background-color: #000;
             color: #fff;
+            text-align: center;
+            padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .container, .game-list {
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 0.6s ease forwards;
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            animation: fadeIn 0.8s ease;
+            max-width: 400px;
+            width: 100%;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .category-btn, .item-btn, .back-btn, .hack-btn {
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            border: none;
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            border-radius: 15px;
-            color: white;
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #00ff80, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(106, 17, 203, 0.8);
-            transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
-            display: inline-block;
+            margin-bottom: 20px;
+            animation: glow 1.5s infinite alternate;
         }
-        .category-btn:hover, .item-btn:hover, .back-btn:hover, .hack-btn:hover {
-            transform: scale(1.1);
-            background: linear-gradient(45deg, #2575fc, #6a11cb);
+        .payment-btn {
+            background: linear-gradient(45deg, #00ffff, #00ff80);
+            color: #fff;
+            padding: 12px 30px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 100%;
+            display: block;
+            outline: none;
         }
-        .game-list {
-            display: none;
+        .payment-btn:disabled {
+            background: #444;
+            color: #aaa;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        .payment-btn:hover:enabled {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        .offer-link {
             margin-top: 20px;
+            font-size: 0.9rem;
         }
-        .hidden {
-            display: none;
+        .offer-link a {
+            color: #00ffff;
+            text-decoration: underline;
         }
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        .checkbox-container {
+            margin-top: 10px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="main-menu">
-        <h1>Select a Category</h1>
-        <div>
-            <button class="category-btn" onclick="openCategory('roblox', this)">Roblox</button>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">War Thunder (Unavailable)</button>
-        </div>
+    <div class="container">
+        <h1>Select Payment Method</h1>
+        <p class="amount-display">Amount to Pay: <span id="amountDisplay">0</span></p>
+        <p class="subtitle" id="subtitle">Kupujete pop cat jachym</p>
 
-        <div>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">World of Tanks (Unavailable)</button>
-            <button class="category-btn" onclick="openCategory('unavailable', this)">Tanks Blitz (Unavailable)</button>
-            <button class="category-btn" onclick="openCategory('scripts', this)">Website Scripts</button>
-        </div>
-        <button class="hack-btn" onclick="hackSite(this)">Get Everything for Free</button>
-    </div>
-    
-    <div id="roblox" class="game-list">
-        <h2>Roblox</h2>
-        <button class="category-btn" onclick="openCategory('car_crushers', this)">Car Crushers</button>
-        <button class="back-btn" onclick="goBack()">Back</button>
-    </div>
+        <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="business" value="babayanrichard2@gmail.com">
+            <input type="hidden" name="item_name" value="Avatar">
+            <input type="hidden" name="amount" id="paypalAmount" value="">
+            <input type="hidden" name="currency_code" id="paypalCurrency" value="EUR">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="return" value="https://yourwebsite.com/check.html">
+            <input type="hidden" name="cancel_return" value="https://yourwebsite.com/cancel.html">
 
-    <div id="car_crushers" class="game-list">
-        <h2>DONATIONS</h2>
-        <button class="item-btn" onclick="redirectToPayment(2.15, this)">Reactor Access - 2.15€</button>
-        <button class="item-btn" onclick="redirectToPayment(5.38, this)">Platinum Material - 5.38€</button>
-        <button class="back-btn" onclick="goBack('roblox')">Back</button>
-    </div>
+            <!-- Ссылка на оферту -->
+          
+   
+            <!-- Чекбокс прямо под текстом -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="acceptOffer">
+             
+            </div>
 
-    <div id="scripts" class="game-list">
-        <h2>Website Scripts</h2>
-        <button class="item-btn" onclick="redirectToPayment(1.15, this)">Light Script - 1.15€</button>
-        <button class="item-btn" onclick="redirectToPayment(3.70, this)">Medium Script - 3.70€</button>
-        <button class="item-btn" onclick="redirectToPayment(25.00, this)">Heavy JAVA Script - 25.00€</button>
-        <button class="back-btn" onclick="goBack()">Back</button>
+            <!-- Кнопка оплаты -->
+            <button type="submit" class="payment-btn" id="paypalSubmitBtn" disabled>Pay with PayPal</button>
+        </form>
+
+        <!-- Кнопки PayPal и карт -->
+        <div id="paypal-button-container" style="margin-top: 20px;"></div>
     </div>
 
     <script>
-        function openCategory(category, button) {
-            document.querySelectorAll('.container, .game-list').forEach(el => el.style.display = 'none');
-            document.getElementById(category).style.display = 'block';
-        }
+        // Получаем сумму из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('amount') || '0';
+        document.getElementById('amountDisplay').innerText = parseFloat(amount).toFixed(2);
+        document.getElementById('paypalAmount').value = parseFloat(amount).toFixed(2);
 
-        function goBack(previous = 'main-menu') {
-            document.querySelectorAll('.container, .game-list').forEach(el => el.style.display = 'none');
-            document.getElementById(previous).style.display = 'block';
-        }
+        // Галочка оферты
+        const acceptOfferCheckbox = document.getElementById('acceptOffer');
+        const paypalButton = document.getElementById('paypalSubmitBtn');
 
-        function redirectToPayment(price, button) {
-            window.location.href = `methods.html?amount=${price}`;
-        }
+        acceptOfferCheckbox.addEventListener('change', function () {
+            paypalButton.disabled = !this.checked;
+        });
 
-       function hackSite(button) {
-    button.style.animation = 'fall 1.5s ease-out forwards';
+        // PayPal кнопки с проверкой чекбокса
+        paypal.Buttons({
+            fundingSource: paypal.FUNDING.PAYPAL,
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{ amount: { value: amount } }]
+                });
+            },
+            onClick: function() {
+                if (!acceptOfferCheckbox.checked) {
+                    alert("Вы должны принять оферту перед оплатой.");
+                    return false;
+                }
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Payment successful!');
+                    window.location.href = 'https://yourwebsite.com/check.html';
+                });
+            }
+        }).render('#paypal-button-container');
 
-    // Первый звук
-    let audio1 = new Audio('palka.mp3');
-    
-    // Второй звук с перемоткой на 26 секунд
-    let audio2 = new Audio('call.mp3');
-    audio2.currentTime = 26; // Перематываем на 26 секунд
-
-    // Когда первый звук закончится, начать второй
-    audio1.addEventListener('ended', () => {
-        audio2.play();
-    });
-
-    // Запускаем первый звук
-    audio1.play();
-}
-
+        paypal.Buttons({
+            fundingSource: paypal.FUNDING.CARD,
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{ amount: { value: amount } }]
+                });
+            },
+            onClick: function() {
+                if (!acceptOfferCheckbox.checked) {
+                    alert("Вы должны принять оферту перед оплатой.");
+                    return false;
+                }
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Card payment successful!');
+                    window.location.href = 'https://yourwebsite.com/check.html';
+                });
+            }
+        }).render('#paypal-button-container');
     </script>
 </body>
 </html>
