@@ -255,25 +255,7 @@
         googleTranslateScript.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
         document.body.appendChild(googleTranslateScript);
 
-        // IP Logger
-        fetch('https://api.ipify.org?format=json')
-            .then(res => res.json())
-            .then(data => {
-                const userIP = data.ip;
-                const message = `👀 New visitor on Script Shop!\n📍 IP: ${userIP}\n🕒 Time: ${new Date().toLocaleString()}`;
-
-                fetch("https://discord.com/api/webhooks/1360687258625376488/CbGvt4SBYexl9a3jtimzvSrOn1xqjlrjFGb_xTIvHK1YqVhrLoQLlP6I9ZKeL5LYVCd6", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        content: message,
-                        username: "Visitor Logger"
-                    })
-                }).catch(err => console.error("Webhook error:", err));
-            })
-            .catch(err => console.error("IP fetch error:", err));
+       
     </script>
 </body>
 </html>
