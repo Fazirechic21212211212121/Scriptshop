@@ -1,0 +1,95 @@
+local main = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local up = Instance.new("TextButton")
+local down = Instance.new("TextButton")
+local onof = Instance.new("TextButton")
+local TextLabel = Instance.new("TextLabel")
+local plus = Instance.new("TextButton")
+local speed = Instance.new("TextLabel")
+local mine = Instance.new("TextButton")
+local closebutton = Instance.new("TextButton")
+local mini = Instance.new("TextButton")
+local mini2 = Instance.new("TextButton")
+local cheatsLabel = Instance.new("TextLabel") -- Add a label for the message
+
+main.Name = "main"
+main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+main.ResetOnSpawn = false
+
+-- Create the "Cheats Richard" label
+cheatsLabel.Name = "CheatsRichard"
+cheatsLabel.Parent = main
+cheatsLabel.BackgroundTransparency = 1
+cheatsLabel.Position = UDim2.new(0.5, -150, 0.5, -30) -- Center of the screen
+cheatsLabel.Size = UDim2.new(0, 300, 0, 60)
+cheatsLabel.Font = Enum.Font.SourceSansBold
+cheatsLabel.Text = "Cheats Richard"
+cheatsLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+cheatsLabel.TextSize = 30
+cheatsLabel.TextScaled = true
+cheatsLabel.TextWrapped = true
+cheatsLabel.TextTransparency = 1 -- Initially transparent
+
+-- Animation for the "Cheats Richard" label
+game:GetService("TweenService"):Create(
+    cheatsLabel, 
+    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), 
+    {TextTransparency = 0}
+):Play()
+
+wait(2) -- Wait for 2 seconds
+game:GetService("TweenService"):Create(
+    cheatsLabel, 
+    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), 
+    {TextTransparency = 1}
+):Play()
+
+-- The rest of your code for the main GUI
+Frame.Parent = main
+Frame.BackgroundColor3 = Color3.fromRGB(163, 255, 137)
+Frame.BorderColor3 = Color3.fromRGB(103, 221, 213)
+Frame.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
+Frame.Size = UDim2.new(0, 190, 0, 57)
+
+up.Name = "up"
+up.Parent = Frame
+up.BackgroundColor3 = Color3.fromRGB(79, 255, 152)
+up.Size = UDim2.new(0, 44, 0, 28)
+up.Font = Enum.Font.SourceSans
+up.Text = "UP"
+up.TextColor3 = Color3.fromRGB(0, 0, 0)
+up.TextSize = 14.000
+
+down.Name = "down"
+down.Parent = Frame
+down.BackgroundColor3 = Color3.fromRGB(215, 255, 121)
+down.Position = UDim2.new(0, 0, 0.491228074, 0)
+down.Size = UDim2.new(0, 44, 0, 28)
+down.Font = Enum.Font.SourceSans
+down.Text = "DOWN"
+down.TextColor3 = Color3.fromRGB(0, 0, 0)
+down.TextSize = 14.000
+
+onof.Name = "onof"
+onof.Parent = Frame
+onof.BackgroundColor3 = Color3.fromRGB(255, 249, 74)
+onof.Position = UDim2.new(0.702823281, 0, 0.491228074, 0)
+onof.Size = UDim2.new(0, 56, 0, 28)
+onof.Font = Enum.Font.SourceSans
+onof.Text = "fly"
+onof.TextColor3 = Color3.fromRGB(0, 0, 0)
+onof.TextSize = 14.000
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(242, 60, 255)
+TextLabel.Position = UDim2.new(0.469327301, 0, 0, 0)
+TextLabel.Size = UDim2.new(0, 100, 0, 28)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "FLY GUI V3"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+-- Rest of your existing GUI code continues here...
